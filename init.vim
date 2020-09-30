@@ -11,6 +11,7 @@ Plug 'pangloss/vim-javascript'	  " JavaScript support
 Plug 'leafgarland/typescript-vim' " TypeScript syntax
 Plug 'maxmellon/vim-jsx-pretty'   " JS and JSX syntax
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 
 call plug#end()
 
