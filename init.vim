@@ -24,6 +24,11 @@ let g:gruvbox_contrast_dark = 'hard'
 colorscheme gruvbox
 set nu
 set mouse=a
+set fileformat=unix
+set fileformats=unix,dos
+"set nobinary
+set spell
+set spelllang=en
 
 :set tabstop=4		" To match the sample file
 :set noexpandtab	" Use tabs, not spaces
@@ -66,10 +71,8 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 " Formatting selected code.
-xmap <leader>ff <Plug>(coc-format-selected)
-" Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
-nmap <leader>ff :Format<CR>
+xmap <silent> <leader>ff <Plug>(coc-format-selected)
+nmap <silent> <leader>ff :CocCommand eslint.executeAutofix<CR>
 " Remap keys for applying codeAction to the current buffer.
 nmap <leader>ca  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
