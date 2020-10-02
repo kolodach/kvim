@@ -32,7 +32,6 @@ set spelllang=en
 
 :set tabstop=4		" To match the sample file
 :set expandtab		" Use spaces instead of tabs
-:%retab!			" Retabulate the whole file
 
 nmap <silent> <C-w>n :tabnext<CR>
 nmap <silent> <C-w>p :tabprevious<CR>
