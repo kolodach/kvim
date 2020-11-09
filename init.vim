@@ -7,21 +7,25 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
-Plug 'pangloss/vim-javascript'	  " JavaScript support
+Plug 'pangloss/vim-javascript'    " JavaScript support
 Plug 'leafgarland/typescript-vim' " TypeScript syntax
 Plug 'maxmellon/vim-jsx-pretty'   " JS and JSX syntax
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'ianding1/leetcode.vim'
+Plug 'easymotion/vim-easymotion'
 
 call plug#end()
 
 " GENERAL
 syntax on
+filetype indent plugin on
 set clipboard=unnamed
 let mapleader = " "
 imap jj <Esc>
 let g:gruvbox_contrast_dark = 'hard'
 colorscheme gruvbox
+hi Normal guibg=NONE ctermbg=NONE
 set nu
 set mouse=a
 set fileformat=unix
@@ -30,12 +34,14 @@ set fileformats=unix,dos
 set spell
 set spelllang=en
 
-:set tabstop=4		" To match the sample file
-:set expandtab		" Use spaces instead of tabs
+" :set tabstop=4      " To match the sample file
+" :set expandtab      " Use spaces instead of tabs
+:set tabstop=8 expandtab shiftwidth=4 softtabstop=4
 
 nmap <silent> <C-w>n :tabnext<CR>
 nmap <silent> <C-w>p :tabprevious<CR>
 nmap <silent> <C-w>c :tabnew<CR>
+nmap <silent> <leader>w :w<CR>
 
 " NERDTREE
 autocmd StdinReadPre * let s:std_in=1
@@ -82,3 +88,45 @@ if has('nvim')
 else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
+
+" LeetCode
+nnoremap <leader>ll :LeetCodeList<cr>
+nnoremap <leader>lt :LeetCodeTest<cr>
+nnoremap <leader>ls :LeetCodeSubmit<cr>
+nnoremap <leader>li :LeetCodeSignIn<cr>
+let g:leetcode_browser = 'chrome'
+
+" EasyMotion
+
+" <Leader>f{char} to move to {char}
+map  <Leader>jf <Plug>(easymotion-bd-f)
+nmap <Leader>jf <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+" nmap s <Plug>(easymotion-overwin-f2)
+
+" Move to line
+map <Leader>jl <Plug>(easymotion-bd-jk)
+nmap <Leader>jl <Plug>(easymotion-overwin-line)
+
+" Move to word
+map  <Leader>jw <Plug>(easymotion-bd-w)
+nmap <Leader>jw <Plug>(easymotion-overwin-w)
+
+"Use TAB to complete when typing words, else inserts TABs as usual.
+"Uses dictionary and source files to find matching words to complete.
+
+"See help completion for source,
+"Note: usual completion is on <C-n> but more trouble to press all the time.
+"Never type the same word twice and maybe learn a new spellings!
+"Use the Linux dictionary when spelling is in doubt.
+"Window users can copy the file to their machine.
+function! Tab_Or_Complete()
+  if col('.')>1 && strpart( getline('.'), col('.')-2, 3 ) =~ '^\w'
+    return "\<C-N>"
+  else
+    return "\<Tab>"
+  endif
+endfunction
+:inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
+:set dictionary="/usr/dict/words"

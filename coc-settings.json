@@ -2,5 +2,7 @@
   "diagnostic.errorSign": "",
   "diagnostic.warningSign": "",
   "diagnostic.infoSign": "",
-  "tsserver.enableJavascript": true
+  "tsserver.enableJavascript": true,
+  "coc.preferences.formatOnSave": true,
+  "coc.preferences.formatOnSaveFiletypes": ["css", "markdown", "python"]
 }
