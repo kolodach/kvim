@@ -12,7 +12,9 @@ Plug 'leafgarland/typescript-vim' " TypeScript syntax
 Plug 'maxmellon/vim-jsx-pretty'   " JS and JSX syntax
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
-Plug 'ianding1/leetcode.vim'
+Plug 'vimwiki/vimwiki'
+Plug 'blindFS/vim-taskwarrior'
+Plug 'jiangmiao/auto-pairs'
 Plug 'easymotion/vim-easymotion'
 
 call plug#end()
@@ -30,9 +32,11 @@ set nu
 set mouse=a
 set fileformat=unix
 set fileformats=unix,dos
+set colorcolumn=80
+set tw=79
 "set nobinary
-set spell
-set spelllang=en
+" set spell
+" set spelllang=en
 
 " :set tabstop=4      " To match the sample file
 " :set expandtab      " Use spaces instead of tabs
@@ -41,7 +45,9 @@ set spelllang=en
 nmap <silent> <C-w>n :tabnext<CR>
 nmap <silent> <C-w>p :tabprevious<CR>
 nmap <silent> <C-w>c :tabnew<CR>
-nmap <silent> <leader>w :w<CR>
+nmap <silent> <leader>fw :w<CR>
+
+nmap <silent> <leader>oc :e ~/.config/nvim/init.vim<CR>
 
 " NERDTREE
 autocmd StdinReadPre * let s:std_in=1
@@ -130,3 +136,26 @@ function! Tab_Or_Complete()
 endfunction
 :inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
 :set dictionary="/usr/dict/words"
+
+" Vim Wiki
+" Hide {{ and }} around code snips.
+let g:vimwiki_conceal_pre = 1                           
+" wiki dictionary
+let wiki = {}                                           
+" set wiki path
+let wiki.path = '~/Documents/wiki'                      
+let wiki.template_path = '~/.wiki/templates'
+let wiki.template_default='default'
+let wiki.template_ext='.tpl'
+" page template
+let wiki.html_template = '~/.wiki/html/template.tpl'    
+" set syntaxes
+let wiki.nested_syntaxes = {'python': 'python'}         
+let g:vimwiki_list = [wiki]
+
+" Task Warrior
+" Task List
+nmap <silent> <leader>tl :TW<CR>
+" Add Task
+nmap <silent> <leader>ta :TWAdd<CR>
+
